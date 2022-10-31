@@ -19,7 +19,7 @@ namespace eTickets.Data.ViewModels
 
         [Required]
         [StringLength(255,ErrorMessage ="Password is at least 8 characters", MinimumLength = 8)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$",ErrorMessage ="Password must contains at least Digit, Lowercase and Uppercase ")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$",ErrorMessage ="Password must contains at least Digit, Lowercase and Uppercase")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

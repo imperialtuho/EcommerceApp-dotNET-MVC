@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-8 offset-2">
         <p>
-            <h4>Update movie</h4>
+            <h4>Edit movie</h4>
         </p>
 
         <div class="row">
@@ -82,11 +82,13 @@
                     <div class="form-group">
                         <input type="submit" value="Update" class="btn btn-outline-success float-right" />
                         <a class="btn btn-outline-secondary" asp-action="Index">Show all</a>
-                    </div>
+                        <a class="btn btn-danger float-right" asp-action="DeleteMovieView" asp-route-id="@Model.Id">Delete</a>
+                    </div>  
 
                 </form>
 
             </div>
+
         </div>
 
     </div>
