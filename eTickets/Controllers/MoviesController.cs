@@ -17,10 +17,13 @@ namespace eTickets.Controllers
     public class MoviesController : Controller
     {
         private readonly IMoviesService _service;
+        private readonly AppDbContext _context;
 
-        public MoviesController(IMoviesService service)
+        public MoviesController(IMoviesService service, AppDbContext context)
         {
             _service = service;
+            _context = context;
+
         }
 
         [AllowAnonymous]
@@ -134,5 +137,31 @@ namespace eTickets.Controllers
             await _service.UpdateMovieAsync(movie);
             return RedirectToAction(nameof(Index));
         }
+
+        //Delete Section
+        public IActionResult DeleteMovieView(int? id) 
+        {
+            if (id == null) 
+            {
+                return NotFound();
+            }
+            var movie = _context.Movies.Find(id);
+            Console.WriteLine(movie.Name);
+            if (movie == null) { return NotFound(); }
+            return View("Delete",movie);
+        }
+
+        //[HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteMovie(int? id)
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            Console.WriteLine(movie.Name);
+            if (movie == null) return View("NotFound");
+            _context.Movies.Remove(movie);
+            _context.SaveChanges();
+            return RedirectToAction("Index","Movies");
+        }
+
     }
 }
